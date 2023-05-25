@@ -26,12 +26,12 @@ namespace Negocio
                     Producto aux = new Producto();
                     aux.Id = (Int32)datos.Lector["Id"];
                     if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("codigo"))))
-                    aux.CodArtículo = (string)datos.Lector["codigo"];
-                    if(!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Nombre"))))
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    if(!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Descripcion"))))
-                    aux.Descripción = (string)datos.Lector["Descripcion"];
-                    if(!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("precio"))))
+                        aux.CodArtículo = (string)datos.Lector["codigo"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Nombre"))))
+                        aux.Nombre = (string)datos.Lector["Nombre"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Descripcion"))))
+                        aux.Descripción = (string)datos.Lector["Descripcion"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("precio"))))
                     {
                         decimal DosDecimal;
                         DosDecimal = (decimal)datos.Lector["precio"];
@@ -39,11 +39,11 @@ namespace Negocio
                     }
                     aux.marca = new Marca();
                     aux.marca.Id = (Int32)datos.Lector["IdMarca"];
-                    if(!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("marca"))))
-                    aux.marca.Nombre = (string)datos.Lector["marca"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("marca"))))
+                        aux.marca.Nombre = (string)datos.Lector["marca"];
                     aux.categoria = new Categoria();
-                    if(!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("categoria"))))
-                    aux.categoria.Nombre = (string)datos.Lector["categoria"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("categoria"))))
+                        aux.categoria.Nombre = (string)datos.Lector["categoria"];
                     aux.categoria.Id = (Int32)datos.Lector["IdCategoria"];
 
                     lista.Add(aux);
@@ -53,7 +53,7 @@ namespace Negocio
 
             }
 
-            
+
 
             catch (Exception ex)
             {
@@ -62,6 +62,53 @@ namespace Negocio
             finally
             {
                 datos.cerrarConexion();
+            }
+        }
+
+        public List<Producto> listarConSP()
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = "SELECT A.id,A.codigo, A.Nombre, A.descripcion,A.IdMArca,A.IdCategoria,M.descripcion as marca , C.descripcion as categoria, a.precio from ARTICULOS A, MARCAS M, CATEGORIAS C  where A.IdMarca = M.Id and C.Id = A.IdCategoria ";
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Producto aux = new Producto();
+                    aux.Id = (Int32)datos.Lector["Id"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("codigo"))))
+                        aux.CodArtículo = (string)datos.Lector["codigo"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Nombre"))))
+                        aux.Nombre = (string)datos.Lector["Nombre"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Descripcion"))))
+                        aux.Descripción = (string)datos.Lector["Descripcion"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("precio"))))
+                    {
+                        decimal DosDecimal;
+                        DosDecimal = (decimal)datos.Lector["precio"];
+                        aux.Precio = float.Parse(DosDecimal.ToString("0.00"));
+                    }
+                    aux.marca = new Marca();
+                    aux.marca.Id = (Int32)datos.Lector["IdMarca"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("marca"))))
+                        aux.marca.Nombre = (string)datos.Lector["marca"];
+                    aux.categoria = new Categoria();
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("categoria"))))
+                        aux.categoria.Nombre = (string)datos.Lector["categoria"];
+                    aux.categoria.Id = (Int32)datos.Lector["IdCategoria"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
