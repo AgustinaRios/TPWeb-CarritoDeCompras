@@ -18,6 +18,16 @@ namespace TPWeb_CarritoDeCompras
             ProductoNegocio negocio = new ProductoNegocio();
             ListaProducto = negocio.listarConSP();
         }
+        public string obtenerUrl(int id)
+        {
+            ProductoNegocio negocio = new ProductoNegocio();
+            return negocio.buscarImagen(id);
+
+        }
+
 
     }
+
+
+
 }
