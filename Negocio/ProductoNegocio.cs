@@ -18,7 +18,7 @@ namespace Negocio
 
             try
             {
-                datos.setearProcedimiento("StoredListar");
+                datos.setearConsulta("SELECT A.id,A.codigo, A.Nombre, A.descripcion,A.IdMArca,A.IdCategoria,M.descripcion as marca , C.descripcion as categoria, a.precio from ARTICULOS A, MARCAS M, CATEGORIAS C  where A.IdMarca = M.Id and C.Id = A.IdCategoria ");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -72,9 +72,7 @@ namespace Negocio
 
             try
             {
-                string consulta = "SELECT A.id,A.codigo, A.Nombre, A.descripcion,A.IdMArca,A.IdCategoria,M.descripcion as marca , C.descripcion as categoria, a.precio from ARTICULOS A, MARCAS M, CATEGORIAS C  where A.IdMarca = M.Id and C.Id = A.IdCategoria ";
-
-                datos.setearConsulta(consulta);
+                datos.setearProcedimiento("StoredListar");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
