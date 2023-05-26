@@ -110,6 +110,44 @@ namespace Negocio
             }
         }
 
+        public List<ImagenArticulo> listarImagenArticuloConSP(Int32 id)
+        {
+            List<ImagenArticulo> lista = new List<ImagenArticulo>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("StoredListarImagen");
+
+                while (datos.Lector.Read())
+                {
+                    ImagenArticulo aux = new ImagenArticulo();
+                    aux.producto = new Producto();
+                    aux.Id = (Int32)datos.Lector["IMG"];
+                    aux.producto.Id = (Int32)datos.Lector["IdArticulo"];
+                    aux.producto.Nombre = (string)datos.Lector["Codigo"];
+                    aux.Imagen = (string)datos.Lector["ImagenUrl"];
+
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+
+            }
+
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+    
         public List<ImagenArticulo> listarImgArt(Int32 id)
         {
             List<ImagenArticulo> lista = new List<ImagenArticulo>();
