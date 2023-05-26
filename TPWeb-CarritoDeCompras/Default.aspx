@@ -14,6 +14,7 @@
                     <h5 class="card-title"><%:producto.Nombre%></h5>
                     <p class="card-text"><%:producto.Descripción %></p>
                     <p class="card-text">Precio: $<%:producto.Precio %></p>
+                    <a href="DetalleProducto.aspx?id=<%:producto.Id %>">Ver Detalle</a>
                 </div>
             </div>
         </div>
