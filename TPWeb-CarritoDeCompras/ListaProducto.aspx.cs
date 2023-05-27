@@ -25,7 +25,7 @@ namespace TPWeb_CarritoDeCompras
             ProductoNegocio negocio = new ProductoNegocio();
              List<ImagenArticulo>ListaImagenProducto=negocio.listarImgArt(id);       
             return ListaImagenProducto[0].Imagen;
-
+            
 
         }
     }
