@@ -21,11 +21,22 @@ namespace TPWeb_CarritoDeCompras
         }
         public string obtenerUrl(int id)
         {
-            
-            ProductoNegocio negocio = new ProductoNegocio();
-             List<ImagenArticulo>ListaImagenProducto=negocio.listarImgArt(id);       
-            return ListaImagenProducto[0].Imagen;
-            
+            try
+            {
+                ProductoNegocio negocio = new ProductoNegocio();
+                List<ImagenArticulo> ListaImagenProducto = negocio.listarImgArt(id);
+                return ListaImagenProducto[0].Imagen;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                string url = "https://efectocolibri.com/wp-content/uploads/2021/01/placeholder.png";
+
+                return url;
+            }
+          
 
         }
     }
