@@ -14,12 +14,16 @@ namespace TPWeb_CarritoDeCompras
         protected void Page_Load(object sender, EventArgs e)
         {
             ProductoNegocio negocio = new ProductoNegocio();
-            listaproducto = negocio.listarConSP();
+            
+                listaproducto = negocio.listarConSP();
+                Session.Add("Listaproducto", listaproducto);
+            
         }
         public string obtenerUrl(int id)
         {
+            
             ProductoNegocio negocio = new ProductoNegocio();
-             List<ImagenArticulo>ListaImagenProducto=negocio.listarImgArt(id);
+             List<ImagenArticulo>ListaImagenProducto=negocio.listarImgArt(id);       
             return ListaImagenProducto[0].Imagen;
 
 
