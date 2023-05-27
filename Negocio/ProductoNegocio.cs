@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Dominio;
 
 namespace Negocio
 {
     public class ProductoNegocio
     {
+        //FUNCIONES PARA PRODUCTOS
         public List<Producto> listar()
         {
             List<Producto> lista = new List<Producto>();
@@ -64,8 +60,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-        public List<Producto> listarConSP()
+        public List<Producto> listarConSP() 
         {
             List<Producto> lista = new List<Producto>();
             AccesoDatos datos = new AccesoDatos();
@@ -109,85 +104,6 @@ namespace Negocio
                 throw ex;
             }
         }
-
-        public List<ImagenArticulo> listarImagenArticuloConSP(Int32 id)
-        {
-            List<ImagenArticulo> lista = new List<ImagenArticulo>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearProcedimiento("StoredListarImagen");
-
-                while (datos.Lector.Read())
-                {
-                    ImagenArticulo aux = new ImagenArticulo();
-                    aux.producto = new Producto();
-                    aux.Id = (Int32)datos.Lector["IMG"];
-                    aux.producto.Id = (Int32)datos.Lector["IdArticulo"];
-                    aux.producto.Nombre = (string)datos.Lector["Codigo"];
-                    aux.Imagen = (string)datos.Lector["ImagenUrl"];
-
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-
-            }
-
-
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-    
-        public List<ImagenArticulo> listarImgArt(Int32 id)
-        {
-            List<ImagenArticulo> lista = new List<ImagenArticulo>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("select  i.id as IMG ,a.Codigo, i.IdArticulo , i.ImagenUrl from imagenes as i inner join ARTICULOS as a on a.id = i.IdArticulo  where a.id=" + id);
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    ImagenArticulo aux = new ImagenArticulo();
-                    aux.producto = new Producto();
-                    aux.Id  = (Int32)datos.Lector["IMG"];
-                    aux.producto.Id = (Int32)datos.Lector["IdArticulo"];
-                    aux.producto.Nombre= (string)datos.Lector["Codigo"];
-                    aux.Imagen = (string)datos.Lector["ImagenUrl"];
-                    
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-
-            }
-
-
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-
         public Int32 UltimoId()
         {
 
@@ -202,13 +118,13 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Int32 aux = new Int32();
-         
+
                     aux = (Int32)datos.Lector["IdArticulo"];
                     UltimoId = aux;
-                    
+
                 }
                 return UltimoId;
-                
+
 
             }
 
@@ -223,13 +139,13 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        public void agregar(Producto nuevo,ImagenArticulo ImagenNueva)
+        public void agregar(Producto nuevo, ImagenArticulo ImagenNueva)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
-            { 
-                datos.setearConsulta("Insert into ARTICULOS (Codigo, Nombre, Descripcion,IdMarca, IdCategoria,Precio)values('" + nuevo.CodArtículo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripción + "', @idMarca, @idCategoria, "+nuevo.Precio+")");
+            {
+                datos.setearConsulta("Insert into ARTICULOS (Codigo, Nombre, Descripcion,IdMarca, IdCategoria,Precio)values('" + nuevo.CodArtículo + "', '" + nuevo.Nombre + "', '" + nuevo.Descripción + "', @idMarca, @idCategoria, " + nuevo.Precio + ")");
                 datos.setearParametro("@idMarca", nuevo.marca.Id);
                 datos.setearParametro("@idCategoria", nuevo.categoria.Id);
                 datos.ejectutarAccion();
@@ -248,31 +164,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-        public void agregarImg(ImagenArticulo ImagenNueva)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-
-                datos.setearConsulta("INSERT INTO IMAGENES (IdArticulo,ImagenUrl)values(@IdArt,@ImagenUrl)");
-                datos.setearParametro("@ImagenUrl", ImagenNueva.Imagen);
-                datos.setearParametro("@IdArt", ImagenNueva.IdProducto);
-                datos.ejectutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-       
-
-       public void EliminarFisico(Int32 Id)
+        public void EliminarFisico(Int32 Id)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -284,27 +176,6 @@ namespace Negocio
                 datos.cerrarConexion();
                 datos.setearConsulta("delete from IMAGENES where IdArticulo = @idart");
                 datos.setearParametro("@idart", Id);
-                datos.ejectutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public void EliminarFisicoImg(Int32 Id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                
-                datos.setearConsulta("delete from IMAGENES where id = @id");
-                datos.setearParametro("@id", Id);
                 datos.ejectutarAccion();
             }
             catch (Exception ex)
@@ -330,34 +201,7 @@ namespace Negocio
                 datos.setearParametro("@idCategoria", producto.categoria.Id);
                 datos.setearParametro("@precio", producto.Precio);
                 datos.setearParametro("@id", producto.Id);
-                
 
-                datos.ejectutarAccion();
-            }
-
-
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        
-        }
-
-        public void ModificarImg( ImagenArticulo imagenModificar)
-         {
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-              
-                datos.setearConsulta("update IMAGENES set ImagenUrl =@Url where Id =@Id and IdArticulo =@IdArt ");
-                datos.setearParametro("@Url", imagenModificar.Imagen);
-                datos.setearParametro("@Id", imagenModificar.Id);
-                datos.setearParametro("@IdArt", imagenModificar.IdProducto);
 
                 datos.ejectutarAccion();
             }
@@ -373,7 +217,6 @@ namespace Negocio
             }
 
         }
-
         public List<Producto> filtrar(string campo, string criterio, string filtro)
         {
             List<Producto> lista = new List<Producto>();
@@ -481,6 +324,154 @@ namespace Negocio
                 throw ex;
             }
         }
+
+        //FUNCIONES PARA IMAGENES
+        public List<ImagenArticulo> listarImgArt(Int32 id)
+        {
+            List<ImagenArticulo> lista = new List<ImagenArticulo>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("select  i.id as IMG ,a.Codigo, i.IdArticulo , i.ImagenUrl from imagenes as i inner join ARTICULOS as a on a.id = i.IdArticulo  where a.id=" + id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ImagenArticulo aux = new ImagenArticulo();
+                    aux.producto = new Producto();
+                    aux.Id = (Int32)datos.Lector["IMG"];
+                    aux.producto.Id = (Int32)datos.Lector["IdArticulo"];
+                    aux.producto.Nombre = (string)datos.Lector["Codigo"];
+                    aux.Imagen = (string)datos.Lector["ImagenUrl"];
+
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+
+            }
+
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public List<ImagenArticulo> listarImagenArticuloConSP(Int32 id)
+        {
+            List<ImagenArticulo> lista = new List<ImagenArticulo>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("StoredListarImagen");
+
+                while (datos.Lector.Read())
+                {
+                    ImagenArticulo aux = new ImagenArticulo();
+                    aux.producto = new Producto();
+                    aux.Id = (Int32)datos.Lector["IMG"];
+                    aux.producto.Id = (Int32)datos.Lector["IdArticulo"];
+                    aux.producto.Nombre = (string)datos.Lector["Codigo"];
+                    aux.Imagen = (string)datos.Lector["ImagenUrl"];
+
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+
+            }
+
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void agregarImg(ImagenArticulo ImagenNueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("INSERT INTO IMAGENES (IdArticulo,ImagenUrl)values(@IdArt,@ImagenUrl)");
+                datos.setearParametro("@ImagenUrl", ImagenNueva.Imagen);
+                datos.setearParametro("@IdArt", ImagenNueva.IdProducto);
+                datos.ejectutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void EliminarFisicoImg(Int32 Id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("delete from IMAGENES where id = @id");
+                datos.setearParametro("@id", Id);
+                datos.ejectutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void ModificarImg(ImagenArticulo imagenModificar)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("update IMAGENES set ImagenUrl =@Url where Id =@Id and IdArticulo =@IdArt ");
+                datos.setearParametro("@Url", imagenModificar.Imagen);
+                datos.setearParametro("@Id", imagenModificar.Id);
+                datos.setearParametro("@IdArt", imagenModificar.IdProducto);
+
+                datos.ejectutarAccion();
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+     
+
+
 
     }
 }

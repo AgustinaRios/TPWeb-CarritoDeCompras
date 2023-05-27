@@ -11,7 +11,7 @@ namespace TPWeb_CarritoDeCompras
 {
 
 
-    public partial class _Default
+    public partial class Carrito
     {
     }
 }
