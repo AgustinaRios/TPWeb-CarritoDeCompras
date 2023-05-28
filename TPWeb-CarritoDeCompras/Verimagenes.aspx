@@ -7,8 +7,9 @@
         %>
         <div class="col">
   <img src="<%:imagen.Imagen%>" class="card-img-top" alt="Imagen Articulo ">
-  <div class="card-body">
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="card-body">  
+      <button type="button" class="btn btn-warning">Modificar</button>
+      <button type="button" class="btn btn-danger">Eliminar</button>
   </div>
 </div>
     <%} %>
