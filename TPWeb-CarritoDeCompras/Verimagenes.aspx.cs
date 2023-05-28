@@ -17,8 +17,8 @@ namespace TPWeb_CarritoDeCompras
             Int32 IdArt = Int32.Parse( Request.QueryString["id"]);
             List<ImagenArticulo> Lista = negocio.listarImgArt(IdArt);
                 listaImagenes = Lista;
-                
-            
+           
+           
         }
     }
 }
