@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-6">
        <% 
-           Dominio.Producto producto = listaproducto[0];
+           Dominio.Producto producto = productoSeleccionado;
         %>
       <h2>Características destacadas</h2>
       <ul class="list-group">

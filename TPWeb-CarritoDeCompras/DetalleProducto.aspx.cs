@@ -12,14 +12,17 @@ namespace TPWeb_CarritoDeCompras
     public partial class DetalleProducto : System.Web.UI.Page
     {
         public List<Producto> listaproducto { get; set; }
-        public Producto producto { get; set; }
+        public Producto productoSeleccionado { get; set; }
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            string ID = Request.QueryString["id"];
+            int id  = Int32.Parse(ID);
+
             ProductoNegocio negocio = new ProductoNegocio();
 
-            listaproducto = negocio.listarConSP();
-            Session.Add("Listaproducto", listaproducto);
+            productoSeleccionado = negocio.ObtenerProducto(id);
+            Session.Add("producto",productoSeleccionado);
         }
         public string obtenerUrl(int id)
         {
