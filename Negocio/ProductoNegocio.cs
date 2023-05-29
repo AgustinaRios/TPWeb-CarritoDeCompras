@@ -325,6 +325,66 @@ namespace Negocio
             }
         }
 
+
+        public Producto ObtenerProducto(Int32 id)
+        {
+            Producto aux = new Producto();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT A.Id,A.codigo, A.Nombre, A.descripcion,A.IdMArca,A.IdCategoria,M.descripcion as marca , C.descripcion as categoria, a.precio from ARTICULOS A, MARCAS M, CATEGORIAS C  where A.IdMarca = M.Id and C.Id = A.IdCategoria and A.Id =" + id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+
+                    //Producto aux = new Producto();
+                    aux.Id = (Int32)datos.Lector["Id"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("codigo"))))
+                        aux.CodArtículo = (string)datos.Lector["codigo"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Nombre"))))
+                        aux.Nombre = (string)datos.Lector["Nombre"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("Descripcion"))))
+                        aux.Descripción = (string)datos.Lector["Descripcion"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("precio"))))
+                    {
+                        decimal DosDecimal;
+                        DosDecimal = (decimal)datos.Lector["precio"];
+                        aux.Precio = float.Parse(DosDecimal.ToString("0.00"));
+                    }
+                    aux.marca = new Marca();
+                    aux.marca.Id = (Int32)datos.Lector["IdMarca"];
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("marca"))))
+                        aux.marca.Nombre = (string)datos.Lector["marca"];
+                    aux.categoria = new Categoria();
+                    if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("categoria"))))
+                        aux.categoria.Nombre = (string)datos.Lector["categoria"];
+                    aux.categoria.Id = (Int32)datos.Lector["IdCategoria"];
+
+
+
+                }
+
+                return aux;
+
+            }
+
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+
         //FUNCIONES PARA IMAGENES
         public List<ImagenArticulo> listarImgArt(Int32 id)
         {
@@ -469,10 +529,7 @@ namespace Negocio
 
         }
 
-     
-
-
-
+   
     }
 }
 
