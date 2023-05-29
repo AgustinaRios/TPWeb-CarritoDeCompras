@@ -10,6 +10,7 @@ namespace TPWeb_CarritoDeCompras
         public List<Producto> listaproducto { get; set; }
         public List<Int32> listacarrito { get; set; }
         public Int32 IdArt = 0;
+     
         protected void Page_Load(object sender, EventArgs e)
         {
             ProductoNegocio negocio = new ProductoNegocio();
