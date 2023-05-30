@@ -1,11 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Verimagenes.aspx.cs" Inherits="TPWeb_CarritoDeCompras.Verimagenes" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <% for (int i = 0; i < listaImagenes.Count; i++) { %>
-                <div class="carousel-item<%= i == 0 ? " active" : "" %>">
-                    <img src="<%= listaImagenes[i].Imagen %>" class="d-block mx-auto" style="object-fit: contain;" />
-                </div>
+            <% for (int i = 0; i < listaImagenes.Count; i++)
+                { %>
+            <div class="carousel-item<%= i == 0 ? " active" : "" %>">
+                <img src="<%= listaImagenes[i].Imagen %>" class="d-block mx-auto" style="object-fit: contain;" />
+            </div>
             <% } %>
         </div>
         <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
