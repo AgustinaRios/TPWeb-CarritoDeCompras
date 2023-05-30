@@ -8,9 +8,11 @@
                     <h4 class="titulo">Nombre</h4>
                 </th>
                 <th scope="col">
+                    <h4 class="titulo">Cantidad</h4>
+               </tr>
+            <th scope="col">
                     <h4 class="titulo">Precio</h4>
-               
-            </tr>
+               </tr>
         </thead>
 
         <asp:Repeater runat="server" ID="repetidorCarrito">
@@ -18,6 +20,9 @@
                 <tbody>
                     <td>
                         <p><%#Eval("Nombre")%></p>
+                    </td>
+                    <td>
+                        <p><%#Eval("Cantidad")%></p>
                     </td>
                     <td>
                         <p><%#Eval("Precio")%></p>

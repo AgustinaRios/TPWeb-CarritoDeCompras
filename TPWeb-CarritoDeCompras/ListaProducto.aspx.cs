@@ -27,19 +27,9 @@ namespace TPWeb_CarritoDeCompras
                
                
                 Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
-
-                Producto item = new Producto();
-                item = listaproducto[IdArt];
-                
-                listacarrito[IdArt].Precio = item.Precio * 2;
-                    Session.Add("CarritoCargado", listacarrito);
-
-                
-
+                Session.Add("idArtCarrito", IdArt);
             }
-
-
-
+           
 
         }
         public string obtenerUrl(Int32 idarticulo)
