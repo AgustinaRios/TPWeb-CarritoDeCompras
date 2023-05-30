@@ -10,9 +10,9 @@ namespace Dominio
     {
         public Int32 Id { get; set; }
         public string Nombre { get; set; }
-        public Int32 cantidad { get; set; }
+        public Int32 Cantidad { get; set; }
 
-        public float precio { get; set; }
+        public float Precio { get; set; }
 
     }
 }

@@ -3,40 +3,41 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">
-                    <h4 class="titulo">Nombre</h4>
-                </th>
-                <th scope="col">
-                    <h4 class="titulo">Cantidad</h4>
-               </tr>
-            <th scope="col">
-                    <h4 class="titulo">Precio</h4>
-               </tr>
-        </thead>
+     <table class="table table-striped">
+  
+    <thead>
+     <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Cantidad</th>
+    </tr>
+       </thead>
+   
 
-         
+     <tbody>
+        
         <asp:Repeater runat="server" ID="repetidorCarrito">
             <ItemTemplate>
-                <tbody>
-                    <td>
-                        <p><%#Eval("Nombre")%></p>
-                    </td>
-                    <td>
-                        <p><%#Eval("Cantidad")%></p>
-                    </td>
-                    <td>
-                        <p><%#Eval("Precio")%></p>
-                    </td>
-
-
-                </tbody>
-            </ItemTemplate>
+                     <tr>
+                     <th><p><%#Eval("Nombre")%></p></th>
+                     <th> <p><%#Eval("Precio")%></p></th>
+                     <th>
+                  <asp:TextBox TextMode="Number" runat="server" OnTextChanged="txtCantidad_TextChanged" text='<%#Eval("Cantidad")%>' ID="txtCantidad" min="1"/>
+                        <asp:Button Text="Agregar" CssClass="btn btn-primary" AutoPostBack="true" ID="btnAgregar" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Id")%>' runat="server" />
+                    
+                    <asp:Button Text="Eliminar" CssClass="btn btn-danger" AutoPostBack="true" ID="btnEliminar" OnClick="btnEliminar_Click" CommandArgument='<%#Eval("Id")%>' runat="server" />
+                 </th>
+                </tr>
+            </ItemTemplate> 
         </asp:Repeater>
-
+          
+    </tbody>
     </table>
+<p>Total: <asp:Label ID="lblTotal" runat="server" OnLoad="lblTotal_Load" /></p>
+         
+   
+ 
+                   
 
 
 </asp:Content>
