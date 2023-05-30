@@ -8,23 +8,35 @@ namespace TPWeb_CarritoDeCompras
     public partial class ListaProducto : System.Web.UI.Page
     {
         public List<Producto> listaproducto { get; set; }
-        public List<Int32> listacarrito { get; set; }
+        public List<Producto> listacarrito { get; set; }
+       
         public Int32 IdArt = 0;
-     
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             ProductoNegocio negocio = new ProductoNegocio();
 
             listaproducto = negocio.listarConSP();
+            
             Session.Add("Listaproducto", listaproducto);
-
-
-            if (IsPostBack)
+              
+            if (Request.QueryString["id"]!= null)
             {
-                IdArt = Int32.Parse(Request.QueryString["id"]);
+               
+               
+                Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
+
+                Producto item = new Producto();
+                item = listaproducto[IdArt];
+                
+                listacarrito[IdArt].Precio = item.Precio * 2;
+                    Session.Add("CarritoCargado", listacarrito);
+
+                
 
             }
-
 
 
 
