@@ -11,8 +11,8 @@
       <h2>Características destacadas</h2>
       <ul class="list-group">
         <li class="list-group-item">Código "<%:producto.CodArtículo%>"</li>
-        <li class="list-group-item">Nombre"<%:producto.Nombre%>"</li>
-        <li class="list-group-item">Descripción<"<%:producto.Descripción%>"</li>
+        <li class="list-group-item">Nombre "<%:producto.Nombre%>"</li>
+        <li class="list-group-item">Descripción "<%:producto.Descripción%>"</li>
         <li class="list-group-item">Marca</li>
         <li class="list-group-item">Categoría</li>
       </ul>

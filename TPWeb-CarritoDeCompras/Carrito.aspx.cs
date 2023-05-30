@@ -19,33 +19,33 @@ namespace TPWeb_CarritoDeCompras
             string id = Convert.ToString(Session["idArtCarrito"]);
             carrito = (carritoclass)Session["carrito"];
             if (carrito == null) carrito = new carritoclass();
-            // carrito.Items = (List<ItemCarrito>)Session["carrito"];
+            //carrito.Items = (List<ItemCarrito>)Session["carrito"];
             if (carrito.lista == null) carrito.lista= new List<ItemsCarrito>();
 
-            if (!IsPostBack)
+
+            if (id != null)
             {
-                
-                    if (carrito.lista.Find(x => x.Id.ToString() == id) == null)
-                    {
-                        List<Producto> listado = (List<Producto>)Session["Listaproducto"];
-                        producto = listado.Find(x => x.Id.ToString() == id);
+                if (carrito.lista.Find(x => x.Id.ToString() == id) == null)
+                {
+                    List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                    producto = listado.Find(x => x.Id.ToString() == id);
 
-                        item.Id= producto.Id;
-                        item.Nombre = producto.Nombre;
-                        item.cantidad = 1;
-                        item.precio = producto.Precio;
-                        carrito.lista.Add(item);
-                     
-                        
+                    item.Id = producto.Id;
+                    item.Nombre = producto.Nombre;
+                    item.cantidad = 1;
+                    item.precio = producto.Precio;
+                    carrito.lista.Add(item);
 
-                    }
-                }
-            //Repeater
-              
-           
-            repetidorCarrito.DataSource = carrito.lista;
+
+
+                } repetidorCarrito.DataSource = carrito.lista;
                 repetidorCarrito.DataBind();
                Session.Add("carrito", carrito);
+            }
+
+              
+            
+           
 
         }
     }
