@@ -12,20 +12,20 @@
       <th scope="col">Cantidad</th>
     </tr>
        </thead>
-   
+    
 
      <tbody>
         
         <asp:Repeater runat="server" ID="repetidorCarrito">
             <ItemTemplate>
                      <tr>
-                     <th><p><%#Eval("Nombre")%></p></th>
-                     <th> <p><%#Eval("Precio")%></p></th>
+                     <th><p><%#Eval("Producto.Nombre")%></p></th>
+                     <th> <p><%#Eval("producto.Precio")%></p></th>
                      <th>
                   <asp:TextBox TextMode="Number" runat="server" OnTextChanged="txtCantidad_TextChanged" text='<%#Eval("Cantidad")%>' ID="txtCantidad" min="1"/>
-                        <asp:Button Text="Agregar" CssClass="btn btn-primary"  ID="btnAgregar" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Id")%>' runat="server" />
+                        <asp:Button Text="Agregar" CssClass="btn btn-primary"  ID="btnAgregar" AutoPostBack="true" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Producto.Id")%>' runat="server" />
                     
-                    <asp:Button Text="Eliminar" CssClass="btn btn-danger"  ID="btnEliminar" OnClick="btnEliminar_Click" CommandArgument='<%#Eval("Id")%>' runat="server" />
+                    <asp:Button Text="Eliminar" CssClass="btn btn-danger"  ID="btnEliminar" AutoPostBack="true" OnClick="btnEliminar_Click" CommandArgument='<%#Eval("Producto.Id")%>' runat="server" />
                  </th>
                 </tr>
             </ItemTemplate> 

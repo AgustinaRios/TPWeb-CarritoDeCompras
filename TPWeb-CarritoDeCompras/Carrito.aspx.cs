@@ -13,33 +13,36 @@ namespace TPWeb_CarritoDeCompras
         ItemsCarrito item = new ItemsCarrito();
         protected void Page_Load(object sender, EventArgs e)
         {
+
             string id = Convert.ToString(Session["idArtCarrito"]);
             carrito = (carritoclass)Session["carrito"];
             if (carrito == null) carrito = new carritoclass();
             //carrito.Items = (List<ItemCarrito>)Session["carrito"];
             if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
 
-
-            if (id != null)
+            if (!IsPostBack)
             {
-                if (carrito.lista.Find(x => x.Id.ToString() == id) == null)
+                if (id != "")
                 {
-                    List<Producto> listado = (List<Producto>)Session["Listaproducto"]; 
-                    producto = listado.Find(x => x.Id.ToString() == id);
+                    if (carrito.lista.Find(x => x.Producto.Id.ToString() == id) == null)
+                    {
+                        List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                        producto = listado.Find(x => x.Id.ToString() == id);
+                        item.SubTotal = Convert.ToDecimal(producto.Precio);
+                        item.Producto = producto;
+                        item.Cantidad = 1;
+                        carrito.lista.Add(item);
 
-                    item.Id = producto.Id;
-                    item.Nombre = producto.Nombre;
-                    item.Cantidad = 1;
-                    item.Precio = producto.Precio;
-                    carrito.lista.Add(item);
+                    }
+                    repetidorCarrito.DataSource = carrito.lista;
+                    repetidorCarrito.DataBind();
+                    Session.Add("carrito", carrito);
+
 
                 }
-                repetidorCarrito.DataSource = carrito.lista;
-                repetidorCarrito.DataBind();
-                Session.Add("carrito", carrito);
-
-
             }
+            lblTotal.Text = carrito.totalCarrito(carrito).ToString();
+            Session.Add("carrito", carrito);
 
 
 
@@ -55,7 +58,7 @@ namespace TPWeb_CarritoDeCompras
                 {
                     var argument = ((Button)sender).CommandArgument;
                     carrito = (carritoclass)Session["carrito"];
-                    ItemsCarrito item1 = carrito.lista.Find(x => x.Id.ToString() == argument);
+                    ItemsCarrito item1 = carrito.lista.Find(x => x.Producto.Id.ToString() == argument);
                     item1.Cantidad = int.Parse(cantidad);
                     Session.Add("carrito", carrito);
                     repetidorCarrito.DataSource = null;
@@ -79,7 +82,7 @@ namespace TPWeb_CarritoDeCompras
                 var argument = ((Button)sender).CommandArgument;
                 //carrito.Items = (List<ItemCarrito>)Session["carrito"];
                 carrito = (carritoclass)Session["carrito"];
-                ItemsCarrito item1 = carrito.lista.Find(x => x.Id.ToString() == argument);
+                ItemsCarrito item1 = carrito.lista.Find(x => x.Producto.Id.ToString() == argument);
                 carrito.lista.Remove(item1);
                 Session.Add("carrito", carrito);
                 repetidorCarrito.DataSource = null;

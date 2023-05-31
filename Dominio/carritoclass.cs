@@ -15,7 +15,7 @@ namespace Dominio
             foreach (ItemsCarrito item in carrito.lista)
             {
 
-                total += Convert.ToDecimal( item.Precio * item.Cantidad);
+                total +=Convert.ToDecimal( item.Producto.Precio * item.Cantidad);
             }
             return total;
         }

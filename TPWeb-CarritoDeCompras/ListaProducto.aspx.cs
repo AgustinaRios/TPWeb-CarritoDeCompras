@@ -28,8 +28,7 @@ namespace TPWeb_CarritoDeCompras
                
                 Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
                 Session.Add("idArtCarrito", IdArt);
-                Int32 CantItems = +1;
-                Session.Add("CantItems",CantItems); 
+                
             }
            
 
