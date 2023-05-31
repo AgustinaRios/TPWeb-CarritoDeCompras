@@ -41,7 +41,7 @@ namespace Negocio
                     if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("categoria"))))
                         aux.categoria.Nombre = (string)datos.Lector["categoria"];
                     aux.categoria.Id = (Int32)datos.Lector["IdCategoria"];
-
+                    aux.Estado = true;
                     lista.Add(aux);
                 }
 

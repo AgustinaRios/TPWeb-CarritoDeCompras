@@ -9,30 +9,43 @@ namespace TPWeb_CarritoDeCompras
     {
         public List<Producto> listaproducto { get; set; }
         public List<Producto> listacarrito { get; set; }
-       
-        public Int32 IdArt = 0;
-       
+
+
+        Int32 cantItems = 0;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             ProductoNegocio negocio = new ProductoNegocio();
 
-            listaproducto = negocio.listarConSP();
-            
+            listaproducto = negocio.listar();
+            listacarrito = listaproducto;
             Session.Add("Listaproducto", listaproducto);
-              
-            if (Request.QueryString["id"]!= null)
+
+
+            if (Request.QueryString["id"] != null)
             {
-               
-               
                 Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
                 Session.Add("idArtCarrito", IdArt);
-                
+                foreach (Producto producto in listacarrito)
+                {
+                    if ( listacarrito[IdArt].Estado == true)
+                    {
+
+                        listacarrito[IdArt].Estado = false;
+                      
+                        cantItems = cantItems + 1;
+
+                        Session.Add("items", cantItems);
+                    }
+
+                }
             }
-           
+
 
         }
+
         public string obtenerUrl(Int32 idarticulo)
         {
             try
@@ -53,9 +66,15 @@ namespace TPWeb_CarritoDeCompras
 
 
         }
-
-
-
-
     }
 }
+
+
+
+
+
+
+
+
+
+
