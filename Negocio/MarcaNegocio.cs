@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,38 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public Marca obtenerMarca(Int32 id)
+        {
+            Marca marca = new Marca();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT * from MARCAS M inner join Articulos A on M.id=A.idMarca where a.id=" + id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Marca aux = new Marca();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Nombre = (string)datos.Lector["Descripcion"];
+
+                    marca = aux;
+                }
+
+                return marca;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
 
         public void agregar(Marca nuevo)
         {
@@ -81,6 +114,8 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+    
+
     }
 }
 

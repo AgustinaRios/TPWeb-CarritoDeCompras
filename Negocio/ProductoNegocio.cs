@@ -339,7 +339,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
 
-                    //Producto aux = new Producto();
+                   
                     aux.Id = (Int32)datos.Lector["Id"];
                     if (!(datos.Lector.IsDBNull(datos.lector.GetOrdinal("codigo"))))
                         aux.CodArtículo = (string)datos.Lector["codigo"];
