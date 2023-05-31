@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" enableEventValidation="true" CodeBehind="Carrito.aspx.cs" Inherits="TPWeb_CarritoDeCompras.Carrito" AutoEventWireup="True" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" enableEventValidation="false" CodeBehind="Carrito.aspx.cs" Inherits="TPWeb_CarritoDeCompras.Carrito" AutoEventWireup="True" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -23,9 +23,9 @@
                      <th> <p><%#Eval("Precio")%></p></th>
                      <th>
                   <asp:TextBox TextMode="Number" runat="server" OnTextChanged="txtCantidad_TextChanged" text='<%#Eval("Cantidad")%>' ID="txtCantidad" min="1"/>
-                        <asp:Button Text="Agregar" CssClass="btn btn-primary" AutoPostBack="true" ID="btnAgregar" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Id")%>' runat="server" />
+                        <asp:Button Text="Agregar" CssClass="btn btn-primary"  ID="btnAgregar" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Id")%>' runat="server" />
                     
-                    <asp:Button Text="Eliminar" CssClass="btn btn-danger" AutoPostBack="true" ID="btnEliminar" OnClick="btnEliminar_Click" CommandArgument='<%#Eval("Id")%>' runat="server" />
+                    <asp:Button Text="Eliminar" CssClass="btn btn-danger"  ID="btnEliminar" OnClick="btnEliminar_Click" CommandArgument='<%#Eval("Id")%>' runat="server" />
                  </th>
                 </tr>
             </ItemTemplate> 
