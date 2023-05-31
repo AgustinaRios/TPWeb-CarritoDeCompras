@@ -1,29 +1,40 @@
-﻿using Dominio;
-using Negocio;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using Dominio;
+using Negocio;
 namespace TPWeb_CarritoDeCompras
 {
-    public partial class DetalleProducto : System.Web.UI.Page
+    public partial class Verimagenes : System.Web.UI.Page
     {
         public List<Producto> listaproducto { get; set; }
         public Producto productoSeleccionado { get; set; }
-        
+
+        public Marca marcaSeleccionada { get; set; }
+        public List<ImagenArticulo> listaImagenes { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
             string ID = Request.QueryString["id"];
-            int id  = Int32.Parse(ID);
+            int id = Int32.Parse(ID);
 
             ProductoNegocio negocio = new ProductoNegocio();
 
             productoSeleccionado = negocio.ObtenerProducto(id);
-            Session.Add("producto",productoSeleccionado);
+            Session.Add("producto", productoSeleccionado);
+
+            Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
+            List<ImagenArticulo> Lista = negocio.listarImgArt(IdArt);
+            listaImagenes = Lista;
+
+            MarcaNegocio Marca = new MarcaNegocio();
+            marcaSeleccionada = Marca.obtenerMarca(id);
+            Session.Add("Marca",marcaSeleccionada );
         }
+
         public string obtenerUrl(int id)
         {
             try
@@ -44,6 +55,8 @@ namespace TPWeb_CarritoDeCompras
 
 
         }
+
+
 
     }
 }

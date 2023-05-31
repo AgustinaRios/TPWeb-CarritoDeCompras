@@ -18,8 +18,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%:producto.Nombre%></h5>
                     <p class="card-text">Precio: $<%:producto.Precio %></p>
-                    <a href="DetalleProducto.aspx?id=<%:producto.Id%>" class="btn btn-success">Ver Detalle</a>
-                    <a href="Verimagenes.aspx?id=<%:producto.Id %>" class="btn btn-success">Mas imagenes</a>
+                    <a href="Detalle.aspx?id=<%:producto.Id %>" class="btn btn-success">Ver Detalle</a>
                     <a href="ListaProducto.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>
 
                 </div>

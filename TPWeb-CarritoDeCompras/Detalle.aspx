@@ -1,6 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Verimagenes.aspx.cs" Inherits="TPWeb_CarritoDeCompras.Verimagenes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Detalle.aspx.cs" Inherits="TPWeb_CarritoDeCompras.Verimagenes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+  .custom-section {
+    background-color: #d9d9d9;
+     border-radius: 10px;
+  }
+</style>
+    <section class="custom-section">
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <% for (int i = 0; i < listaImagenes.Count; i++)
@@ -30,7 +37,7 @@
         .carousel-control-next,
         .carousel-control-prev:visited,
         .carousel-control-next:visited {
-            color: red; /* Cambia el color de los enlaces aquí */
+            color: black;
         }
     </style>
 
@@ -46,6 +53,45 @@
             });
         });
     </script>
+    <style>
+  .custom-container {
+    margin-left: 4px;
+    margin-right: 6px;
+    max-width: 700px;
+    background-color:#888888;
+    border-radius: 10px;
+
+  }
+
+   </style>
+
+    <div class="container custom-container mx-auto">
+  <div class="row">
+    <div class="col-md-6">
+       <% 
+           Dominio.Producto producto = productoSeleccionado;
+           Dominio.Marca marca = marcaSeleccionada;
+        %>
+      <h2>Características destacadas</h2>
+      <ul class="list-group">
+        <li class="list-group-item">Código "<%:producto.CodArtículo%>"</li>
+        <li class="list-group-item">Nombre "<%:producto.Nombre%>"</li>
+        <li class="list-group-item">Descripción "<%:producto.Descripción%>"</li>
+        <li class="list-group-item">Marca "<%:producto.marca.Nombre%>"</li>
+        <li class="list-group-item">Categoría</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+     
+    </div>
+  </div>
+   
+       
+        <%  %>
+
+</div>
+</section>
+   
 </asp:Content>
 
 
