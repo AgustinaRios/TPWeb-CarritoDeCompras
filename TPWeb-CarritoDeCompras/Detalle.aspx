@@ -67,7 +67,7 @@
 
     <div class="container custom-container mx-auto">
   <div class="row">
-    <div class="col-md-6">
+     <div class="col-md-6">
        <% 
            Dominio.Producto producto = productoSeleccionado;
            Dominio.Marca marca = marcaSeleccionada;
@@ -82,16 +82,15 @@
       </ul>
     </div>
     <div class="col-md-6">
-     
+
     </div>
   </div>
-   
-       
+
+
         <%  %>
 
 </div>
 </section>
-   
 </asp:Content>
 
 

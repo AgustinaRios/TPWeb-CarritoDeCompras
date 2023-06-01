@@ -9,6 +9,6 @@ namespace Dominio
     public  class Item
     {
         public int Cantidad { get; set; }
-        public Int32 id { get; set; }
+        
     }
 }

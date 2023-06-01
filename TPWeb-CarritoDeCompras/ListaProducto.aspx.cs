@@ -11,9 +11,6 @@ namespace TPWeb_CarritoDeCompras
         public List<Producto> listacarrito { get; set; }
 
 
-        Int32 cantItems = 0;
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,25 +19,15 @@ namespace TPWeb_CarritoDeCompras
             listaproducto = negocio.listar();
             listacarrito = listaproducto;
             Session.Add("Listaproducto", listaproducto);
-
-
+    
             if (Request.QueryString["id"] != null)
             {
                 Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
                 Session.Add("idArtCarrito", IdArt);
-                foreach (Producto producto in listacarrito)
-                {
-                    if ( listacarrito[IdArt].Estado == true)
-                    {
+               
+                Session.Add("items",1);
 
-                        listacarrito[IdArt].Estado = false;
-                      
-                        cantItems = cantItems + 1;
 
-                        Session.Add("items", cantItems);
-                    }
-
-                }
             }
 
 
