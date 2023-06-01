@@ -8,6 +8,39 @@
             <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_textChanged" />
             </div>
     </div>
+    <div class ="col-6" style="display:flex; flex-direction:column;justify-content:flex-end">
+        <div class="mb-3">
+            <asp:checkbox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_ChekedChanged" />
+
+        </div>
+    </div>
+    <%if (filtroAvanzado)
+        {%>
+     <div class "row">
+        <div class="col-3">
+            <div class="mb-3">
+                <asp:Label Text="Campo"  runat="server" />
+                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCampo" OnSelectedIndexChanged="ddlcampo_SelectedIndexChanged" AutoPostBack="true">
+                <asp:ListItem Text="Nombre" />
+                    <asp:ListItem Text="Marca" />
+                    <asp:ListItem Text="Codigo" />
+                    </asp:DropdownList>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="mb-3">
+                <asp:Label Text="Criterio" runat="server" />
+                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCriterio"/>
+            </div>
+        </div>
+        
+                <asp:Label Text="Filtro"  runat="server"  />
+                <asp:Textbox runat="server" CssClass="form-control1" ID="txtFiltroAvanzado"/>
+               
+                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick= "BtnBuscar_clik" />
+                    
+        </div>
+    <%} %>
 
 
     <div class="row row-cols-1 row-cols-md-3 g-4">

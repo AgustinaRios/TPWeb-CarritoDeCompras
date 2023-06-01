@@ -2,6 +2,8 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net;
 
 namespace TPWeb_CarritoDeCompras
 {
@@ -9,8 +11,8 @@ namespace TPWeb_CarritoDeCompras
     {
         public List<Producto> listaproducto { get; set; }
         public List<Producto> listacarrito { get; set; }
-
-
+        
+        public bool filtroAvanzado { get;set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -19,6 +21,7 @@ namespace TPWeb_CarritoDeCompras
             listaproducto = negocio.listar();
             listacarrito = listaproducto;
             Session.Add("Listaproducto", listaproducto);
+            filtroAvanzado=chkAvanzado.Checked;
     
             if (Request.QueryString["id"] != null)
             {
@@ -59,6 +62,34 @@ namespace TPWeb_CarritoDeCompras
             listaproducto = listaproducto.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
 
         }
+        protected void chkAvanzado_ChekedChanged(object sender, EventArgs e)
+        {
+            filtroAvanzado=chkAvanzado.Checked;
+            txtFiltro.Enabled = !filtroAvanzado;
+
+        }
+        protected void ddlcampo_SelectedIndexChanged (object sender, EventArgs e)
+        {
+         
+            ddlCriterio.Items.Add("Contiene");
+            ddlCriterio.Items.Add("Comienza con");
+            ddlCriterio.Items.Add("Termina con");
+        }
+        protected void BtnBuscar_clik(object sender, EventArgs e)
+        {
+            try
+            {
+               ProductoNegocio negocio = new ProductoNegocio();
+                listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+        }
+
     }
 }
 
