@@ -53,6 +53,12 @@ namespace TPWeb_CarritoDeCompras
 
 
         }
+        protected void filtro_textChanged(object sender, EventArgs e)
+        {
+            listaproducto = (List<Producto>)Session["Listaproducto"];
+            listaproducto = listaproducto.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+        }
     }
 }
 

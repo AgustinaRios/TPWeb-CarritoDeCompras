@@ -1,7 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListaProducto.aspx.cs" Inherits="TPWeb_CarritoDeCompras.ListaProducto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+      <div class="row">
+        <div class="col-3">
 
+            <asp:Label Text="Buscar por Nombre" runat="server" />
+            <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_textChanged" />
+            </div>
+    </div>
 
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
