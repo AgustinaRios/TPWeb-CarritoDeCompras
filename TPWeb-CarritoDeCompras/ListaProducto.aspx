@@ -19,8 +19,8 @@
      <div class "row">
         <div class="col-3">
             <div class="mb-3">
-                <asp:Label Text="Campo"  runat="server" />
-                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCampo" OnSelectedIndexChanged="ddlcampo_SelectedIndexChanged" AutoPostBack="true">
+                <asp:Label Text="Buscar por"  runat="server" />
+                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCampo" AutoPostBack="true">
                 <asp:ListItem Text="Nombre" />
                     <asp:ListItem Text="Marca" />
                     <asp:ListItem Text="Codigo" />
@@ -30,7 +30,11 @@
         <div class="col-3">
             <div class="mb-3">
                 <asp:Label Text="Criterio" runat="server" />
-                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCriterio"/>
+                <asp:DropdownList runat="server" CssClass="form-control1" ID="ddlCriterio" AutoPostBack="true">
+                <asp:ListItem Text="Contiene" />
+                    <asp:ListItem Text="Comienza con" />
+                    <asp:ListItem Text="Termina con" />
+                    </asp:DropdownList>
             </div>
         </div>
         

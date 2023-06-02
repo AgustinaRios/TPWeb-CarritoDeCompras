@@ -11,29 +11,30 @@ namespace TPWeb_CarritoDeCompras
     {
         public List<Producto> listaproducto { get; set; }
         public List<Producto> listacarrito { get; set; }
-        
-        public bool filtroAvanzado { get;set; }
+
+        public bool filtroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            ProductoNegocio negocio = new ProductoNegocio();
-
-            listaproducto = negocio.listar();
-            listacarrito = listaproducto;
-            Session.Add("Listaproducto", listaproducto);
-            filtroAvanzado=chkAvanzado.Checked;
-    
-            if (Request.QueryString["id"] != null)
+            if (!IsPostBack)
             {
-                Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
-                Session.Add("idArtCarrito", IdArt);
-               
-                Session.Add("items",1);
+                ProductoNegocio negocio = new ProductoNegocio();
 
+                listaproducto = negocio.listar();
+                listacarrito = listaproducto;
+                Session.Add("Listaproducto", listaproducto);
+                filtroAvanzado = chkAvanzado.Checked;
+
+                if (Request.QueryString["id"] != null)
+                {
+                    Int32 IdArt = Int32.Parse(Request.QueryString["id"]);
+                    Session.Add("idArtCarrito", IdArt);
+
+                    Session.Add("items", 1);
+
+
+                }
 
             }
-
-
         }
 
         public string obtenerUrl(Int32 idarticulo)
@@ -64,22 +65,16 @@ namespace TPWeb_CarritoDeCompras
         }
         protected void chkAvanzado_ChekedChanged(object sender, EventArgs e)
         {
-            filtroAvanzado=chkAvanzado.Checked;
+            filtroAvanzado = chkAvanzado.Checked;
             txtFiltro.Enabled = !filtroAvanzado;
 
         }
-        protected void ddlcampo_SelectedIndexChanged (object sender, EventArgs e)
-        {
-         
-            ddlCriterio.Items.Add("Contiene");
-            ddlCriterio.Items.Add("Comienza con");
-            ddlCriterio.Items.Add("Termina con");
-        }
+
         protected void BtnBuscar_clik(object sender, EventArgs e)
         {
             try
             {
-               ProductoNegocio negocio = new ProductoNegocio();
+                ProductoNegocio negocio = new ProductoNegocio();
                 listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
 
             }
