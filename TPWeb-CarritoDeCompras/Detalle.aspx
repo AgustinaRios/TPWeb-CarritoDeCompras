@@ -78,7 +78,7 @@
         <li class="list-group-item">Nombre "<%:producto.Nombre%>"</li>
         <li class="list-group-item">Descripción "<%:producto.Descripción%>"</li>
         <li class="list-group-item">Marca "<%:producto.marca.Nombre%>"</li>
-        <li class="list-group-item">Categoría</li>
+        <li class="list-group-item">Categoría "<%:producto.categoria.Nombre%>"</li>
       </ul>
     </div>
     <div class="col-md-6">
