@@ -15,8 +15,7 @@ namespace TPWeb_CarritoDeCompras
         public bool filtroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+           
                 ProductoNegocio negocio = new ProductoNegocio();
 
                 listaproducto = negocio.listar();
@@ -34,7 +33,6 @@ namespace TPWeb_CarritoDeCompras
 
                 }
 
-            }
         }
 
         public string obtenerUrl(Int32 idarticulo)
@@ -74,9 +72,11 @@ namespace TPWeb_CarritoDeCompras
         {
             try
             {
-                ProductoNegocio negocio = new ProductoNegocio();
-                listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+               
 
+                    ProductoNegocio negocio = new ProductoNegocio();
+                    listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+                
             }
             catch (Exception ex)
             {

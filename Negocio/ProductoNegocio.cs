@@ -228,7 +228,7 @@ namespace Negocio
 
                 switch (campo)
                 {
-                    case "Código":
+                    case "Codigo":
                         switch (criterio)
                         {
                             case "Comienza con":
