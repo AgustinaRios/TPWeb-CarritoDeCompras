@@ -12,8 +12,47 @@ namespace TPWeb_CarritoDeCompras
 {
     public partial class SiteMaster : MasterPage
     {
+        public List<ItemsCarrito> Listacarrito { set; get; }
+        public carritoclass carrito = new carritoclass();
+        Producto producto = new Producto();
+        ItemsCarrito item = new ItemsCarrito();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string id = Convert.ToString(Session["idArtCarrito"]);
+            carrito = (carritoclass)Session["carrito"];
+            if (carrito == null) carrito = new carritoclass();
+            if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
+
+            if (id != "")
+            {
+                ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
+
+                if (item == null)
+                {
+                    List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                    producto = listado.Find(x => x.Id.ToString() == id);
+                    item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
+                    item.SubTotal = Convert.ToDecimal(producto.Precio);
+                    item.Producto = producto;
+                    item.Cantidad = 1;
+                    carrito.lista.Add(item);
+                }
+                else
+                {
+                    //item.SubTotal += item.SubTotal;
+                    item.Cantidad++;
+                }
+
+                Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
+                Session["carrito"] = carrito;
+            }
+
+            //repetidorCarrito.DataSource = carrito.lista;
+            //repetidorCarrito.DataBind();
+
+            //lblTotal.Text = carrito.totalCarrito(carrito).ToString();
+
+
             if (!IsPostBack)
             {
                 

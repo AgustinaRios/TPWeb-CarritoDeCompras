@@ -22,7 +22,8 @@ namespace TPWeb_CarritoDeCompras
 
             if (id != "")
             {
-                if (carrito.lista.Find(x => x.Producto.Id.ToString() == id) == null)
+                ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
+                if (item == null)
                 {
                     List<Producto> listado = (List<Producto>)Session["Listaproducto"];
                     producto = listado.Find(x => x.Id.ToString() == id);
@@ -32,7 +33,12 @@ namespace TPWeb_CarritoDeCompras
                     item.Cantidad = 1;
                     carrito.lista.Add(item);
                 }
-
+                else
+                {
+                    //item.SubTotal += item.SubTotal;
+                    item.Cantidad++;
+                    Session["carrito"] = carrito;
+                }
                 Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
                 Session["carrito"] = carrito;
             }
@@ -61,6 +67,7 @@ namespace TPWeb_CarritoDeCompras
                     repetidorCarrito.DataBind();
                     lblTotal.Text = carrito.totalCarrito(carrito).ToString();
                 }
+            
             }
             catch (Exception ex)
             {
