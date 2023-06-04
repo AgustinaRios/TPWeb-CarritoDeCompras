@@ -3,9 +3,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
   .custom-section {
-    background-color: #d9d9d9;
+    background-color: #413636;
      border-radius: 10px;
   }
+  .custom-container h2 {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .custom-container ul li {
+            color: black;
+            font-size: 16px;
+        }
 </style>
     <section class="custom-section">
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
@@ -37,7 +47,7 @@
         .carousel-control-next,
         .carousel-control-prev:visited,
         .carousel-control-next:visited {
-            color: black;
+            color: whitesmoke;
         }
     </style>
 
@@ -92,7 +102,6 @@
 </div>
 </section>
 </asp:Content>
-
 
 
 

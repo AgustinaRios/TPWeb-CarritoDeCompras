@@ -20,29 +20,29 @@ namespace TPWeb_CarritoDeCompras
             if (carrito == null) carrito = new carritoclass();
             if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
 
-            if (!IsPostBack)
+            if (id != "")
             {
-                if (id != "")
+                if (carrito.lista.Find(x => x.Producto.Id.ToString() == id) == null)
                 {
-                    if (carrito.lista.Find(x => x.Producto.Id.ToString() == id) == null)
-                    {
-                        List<Producto> listado = (List<Producto>)Session["Listaproducto"];
-                        producto = listado.Find(x => x.Id.ToString() == id);
-                        item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
-                        item.SubTotal = Convert.ToDecimal(producto.Precio);
-                        item.Producto = producto;
-                        item.Cantidad = 1;
-                        carrito.lista.Add(item);
-                    }
-
-                    repetidorCarrito.DataSource = carrito.lista;
-                    repetidorCarrito.DataBind();
-                    Session["carrito"] = carrito;
+                    List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                    producto = listado.Find(x => x.Id.ToString() == id);
+                    item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
+                    item.SubTotal = Convert.ToDecimal(producto.Precio);
+                    item.Producto = producto;
+                    item.Cantidad = 1;
+                    carrito.lista.Add(item);
                 }
+
+                Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
+                Session["carrito"] = carrito;
             }
+
+            repetidorCarrito.DataSource = carrito.lista;
+            repetidorCarrito.DataBind();
 
             lblTotal.Text = carrito.totalCarrito(carrito).ToString();
         }
+
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace TPWeb_CarritoDeCompras
             try
             {
                 var cantidad = ((TextBox)sender).Text;
-                lblTotal.Text = cantidad;
+                //lblTotal.Text = cantidad;
             }
             catch (Exception ex)
             {

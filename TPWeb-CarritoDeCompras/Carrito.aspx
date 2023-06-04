@@ -20,7 +20,7 @@
             <ItemTemplate>
                      <tr>
                      <th><p><%#Eval("Producto.Nombre")%></p></th>
-                     <th> <p><%#Eval("producto.Precio")%></p></th>
+                     <th> <p><%#Eval("Producto.Precio")%></p></th>
                      <th>
                   <asp:TextBox TextMode="Number" runat="server" OnTextChanged="txtCantidad_TextChanged" text='<%#Eval("Cantidad")%>' ID="txtCantidad" min="1"/>
                         <asp:Button Text="Agregar" CssClass="btn btn-primary"  ID="btnAgregar" AutoPostBack="true" OnClick="btnAgregar_Click"  CommandArgument='<%#Eval("Producto.Id")%>' runat="server" />
