@@ -5,7 +5,7 @@
         <ContentTemplate>
            <div class="row">
             <div class="mb-3">
-             <asp:TextBox runat="server" ID="txtFiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_textChanged" />
+             <asp:TextBox runat="server" ID="txtFiltro" class="btn btn-outline-success" AutoPostBack="true" OnTextChanged="filtro_textChanged" />
              <asp:Label Text="Buscar por Nombre" runat="server" />
             </div>
           </div>
@@ -18,7 +18,7 @@
             <%if (filtroAvanzado)
                 {%>
 
-            <div class="row">
+               <div class="row">
                 <div class="col-3">
                     <div class="mb-3">
                         <asp:Label Text="Buscar por" runat="server" />
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 </div>
-            <br />
+        
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <% 
                         foreach (Dominio.Producto producto in listaproducto)
@@ -60,54 +60,53 @@
                     %>
                     
                     <div class="col">
-                       <div class="card"  >
-                        <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                       <div class="card"  >                        
                             <img src="<%:obtenerUrl(producto.Id)%>" class="card-img-top" alt=".Imagen del producto">
                             <div class="card-body">
+                                <div class="card-info">
                                 <h5 class="card-title"><%:producto.Nombre%></h5>
-                                <p class="card-text">Precio: $<%:producto.Precio %></p>
+                                <p class="card-text"> $<%:producto.Precio %></p>
+                                 </div>
+                                 <div class="columnas">
                                   <a href="Detalle.aspx?id=<%:producto.Id %>" class="btn btn-success">Ver Detalle</a>
                                   <a href="ListaProducto.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>                           
                               </div>
+                             </div>
                             </div>
                         </div>
                     </div>
-                    </div>
+                  
                     <%  }%>
-                </div>
-            </div>
-            <%}
-
-            %>
-
+               </div>
+            <%}%>    
     <%else
-        {
+      {
     %>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <% 
             foreach (Dominio.Producto producto in listaproducto)
             {
-        %>
+        %> 
+        
         <div class="col">
-
+           <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
             <div class="card">
-
-
                 <img src="<%:obtenerUrl(producto.Id)%>" class="card-img-top" alt=".Imagen del producto">
                 <div class="card-body">
                     <h5 class="card-title"><%:producto.Nombre%></h5>
-                    <p class="card-text">Precio: $<%:producto.Precio %></p>
+                    <p class="card-text"> $<%:producto.Precio %></p>
+                     <div class="columnas">
                     <a href="Detalle.aspx?id=<%:producto.Id %>" class="btn btn-success">Ver Detalle</a>
                     <a href="ListaProducto.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>
-
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <%  }%>
-    </div>
-    <%} %>
-            
+            </div>
+         </div>
+          <%}%>
+     </div>
+    <%}%>    
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

@@ -77,12 +77,12 @@
 
     <div class="container custom-container mx-auto">
   <div class="row">
-     <div class="col-md-6">
+     <div class="col-md-12">
        <% 
            Dominio.Producto producto = productoSeleccionado;
            Dominio.Marca marca = marcaSeleccionada;
         %>
-      <h2>Características destacadas</h2>
+      <h2 class="TituloDetalle" >Características destacadas</h2>
       <ul class="list-group">
         <li class="list-group-item">Código "<%:producto.CodArtículo%>"</li>
         <li class="list-group-item">Nombre "<%:producto.Nombre%>"</li>
@@ -91,9 +91,7 @@
         <li class="list-group-item">Categoría "<%:producto.categoria.Nombre%>"</li>
       </ul>
     </div>
-    <div class="col-md-6">
-
-    </div>
+    
   </div>
 
 

@@ -16,15 +16,30 @@ textarea {
 
 
 .FormularioPrincipal{
-    background-color:blanchedalmond;
+    background-color:gainsboro;
 }
 
-.row row-cols-1 row-cols-md-3 g-4{
- 
-}
-.BtnCarrito{
-align-content:space-around;
 
+.columnas {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 2rem;
+}
+.card-title {
+    text-align: center;
+    color:forestgreen;
+}
+.card-text {
+    text-align: center;
+    color: red;
+    
+}
+.TituloDetalle {
+    text-align: center;
+    color: red;
+}
+.list-group {
+    text-align: center;
 }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
