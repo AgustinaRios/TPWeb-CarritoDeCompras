@@ -4,6 +4,7 @@
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -13,6 +14,18 @@ textarea {
     max-width: 280px;
 }
 
+
+.FormularioPrincipal{
+    background-color:blanchedalmond;
+}
+
+.row row-cols-1 row-cols-md-3 g-4{
+ 
+}
+.BtnCarrito{
+align-content:space-around;
+
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .body-content {
