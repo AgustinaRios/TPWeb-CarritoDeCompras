@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListaProducto.aspx.cs" Inherits="TPWeb_CarritoDeCompras.ListaProducto" %>
+﻿<%@ Page Title="Inicio" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPWeb_CarritoDeCompras.ListaProducto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="updatePanel" runat="server">
@@ -70,7 +70,7 @@
                                  </div>
                                  <div class="columnas">
                                   <a href="Detalle.aspx?id=<%:producto.Id %>" class="btn btn-success">Ver Detalle</a>
-                                  <a href="ListaProducto.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>                           
+                                  <a href="Default.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>                           
                               </div>
                              </div>
                             </div>
@@ -98,7 +98,7 @@
                     <p class="card-text"> $<%:producto.Precio %></p>
                      <div class="columnas">
                     <a href="Detalle.aspx?id=<%:producto.Id %>" class="btn btn-success">Ver Detalle</a>
-                    <a href="ListaProducto.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>
+                    <a href="Default.aspx?id=<%:producto.Id %>" class="btn btn-success">Carrito</a>
                     </div>
                 </div>
             </div>

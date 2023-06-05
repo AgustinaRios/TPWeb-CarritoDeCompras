@@ -15,38 +15,50 @@ namespace TPWeb_CarritoDeCompras
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["idArtCarrito"]);
-            carrito = (carritoclass)Session["carrito"];
-            if (carrito == null) carrito = new carritoclass();
-            if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
-
-            if (id != "")
+            try
             {
-                ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
-                if (item == null)
+
+
+                string id = Convert.ToString(Session["idArtCarrito"]);
+                carrito = (carritoclass)Session["carrito"];
+                if (carrito == null) carrito = new carritoclass();
+                if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
+
+                if (id != "")
                 {
-                    List<Producto> listado = (List<Producto>)Session["Listaproducto"];
-                    producto = listado.Find(x => x.Id.ToString() == id);
-                    item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
-                    item.SubTotal = Convert.ToDecimal(producto.Precio);
-                    item.Producto = producto;
-                    item.Cantidad = 1;
-                    carrito.lista.Add(item);
-                }
-                else
-                {
-                    //item.SubTotal += item.SubTotal;
-                    item.Cantidad++;
+                    ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
+                    if (item == null)
+                    {
+                        List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                        producto = listado.Find(x => x.Id.ToString() == id);
+                        item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
+                        item.SubTotal = Convert.ToDecimal(producto.Precio);
+                        item.Producto = producto;
+                        item.Cantidad = 1;
+                        carrito.lista.Add(item);
+                    }
+                    else
+                    {
+                        //item.SubTotal += item.SubTotal;
+                        item.Cantidad++;
+                        Session["carrito"] = carrito;
+                    }
+                    Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
                     Session["carrito"] = carrito;
                 }
-                Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
-                Session["carrito"] = carrito;
+
+                repetidorCarrito.DataSource = carrito.lista;
+                repetidorCarrito.DataBind();
+
+                lblTotal.Text = carrito.totalCarrito(carrito).ToString();
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
             }
 
-            repetidorCarrito.DataSource = carrito.lista;
-            repetidorCarrito.DataBind();
-
-            lblTotal.Text = carrito.totalCarrito(carrito).ToString();
         }
 
 
@@ -67,11 +79,12 @@ namespace TPWeb_CarritoDeCompras
                     repetidorCarrito.DataBind();
                     lblTotal.Text = carrito.totalCarrito(carrito).ToString();
                 }
-            
+
             }
             catch (Exception ex)
             {
-                // Manejo del error
+                Session.Add("error", ex);
+                throw;
             }
         }
 
@@ -95,7 +108,8 @@ namespace TPWeb_CarritoDeCompras
             }
             catch (Exception ex)
             {
-                // Manejo del error
+                Session.Add("error", ex);
+                throw;
             }
         }
         protected void txtCantidad_TextChanged(object sender, EventArgs e)
@@ -107,7 +121,8 @@ namespace TPWeb_CarritoDeCompras
             }
             catch (Exception ex)
             {
-                // Manejo del error
+                Session.Add("error", ex);
+                throw;
             }
         }
         protected void lblTotal_Load(object sender, EventArgs e)

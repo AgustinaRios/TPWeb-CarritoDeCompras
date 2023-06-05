@@ -2,8 +2,6 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net;
 
 namespace TPWeb_CarritoDeCompras
 {
@@ -15,8 +13,11 @@ namespace TPWeb_CarritoDeCompras
         public bool filtroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-                ProductoNegocio negocio = new ProductoNegocio();
+
+            ProductoNegocio negocio = new ProductoNegocio();
+            try
+            {
+
 
                 listaproducto = negocio.listar();
                 listacarrito = listaproducto;
@@ -33,6 +34,14 @@ namespace TPWeb_CarritoDeCompras
 
                 }
 
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+
+
         }
 
         public string obtenerUrl(Int32 idarticulo)
@@ -46,7 +55,7 @@ namespace TPWeb_CarritoDeCompras
                 return ListaImagenProducto[0].Imagen;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 string url = "https://efectocolibri.com/wp-content/uploads/2021/01/placeholder.png";
 
@@ -57,14 +66,38 @@ namespace TPWeb_CarritoDeCompras
         }
         protected void filtro_textChanged(object sender, EventArgs e)
         {
-            listaproducto = (List<Producto>)Session["Listaproducto"];
-            listaproducto = listaproducto.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+            try
+            {
+
+                listaproducto = (List<Producto>)Session["Listaproducto"];
+                listaproducto = listaproducto.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+
 
         }
         protected void chkAvanzado_ChekedChanged(object sender, EventArgs e)
         {
-            filtroAvanzado = chkAvanzado.Checked;
-            txtFiltro.Enabled = !filtroAvanzado;
+            try
+            {
+
+
+                filtroAvanzado = chkAvanzado.Checked;
+                txtFiltro.Enabled = !filtroAvanzado;
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+
 
         }
 
@@ -72,11 +105,11 @@ namespace TPWeb_CarritoDeCompras
         {
             try
             {
-               
 
-                    ProductoNegocio negocio = new ProductoNegocio();
-                    listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
-                
+
+                ProductoNegocio negocio = new ProductoNegocio();
+                listaproducto = negocio.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+
             }
             catch (Exception ex)
             {

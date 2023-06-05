@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Dominio;
 namespace TPWeb_CarritoDeCompras
 
 
@@ -18,89 +15,100 @@ namespace TPWeb_CarritoDeCompras
         ItemsCarrito item = new ItemsCarrito();
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Convert.ToString(Session["idArtCarrito"]);
-            carrito = (carritoclass)Session["carrito"];
-            if (carrito == null) carrito = new carritoclass();
-            if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
-
-            if (id != "")
+            try
             {
-                ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
+                string id = Convert.ToString(Session["idArtCarrito"]);
+                carrito = (carritoclass)Session["carrito"];
+                if (carrito == null) carrito = new carritoclass();
+                if (carrito.lista == null) carrito.lista = new List<ItemsCarrito>();
 
-                if (item == null)
+                if (id != "")
                 {
-                    List<Producto> listado = (List<Producto>)Session["Listaproducto"];
-                    producto = listado.Find(x => x.Id.ToString() == id);
-                    item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
-                    item.SubTotal = Convert.ToDecimal(producto.Precio);
-                    item.Producto = producto;
-                    item.Cantidad = 1;
-                    carrito.lista.Add(item);
-                }
-                else
-                {
-                    //item.SubTotal += item.SubTotal;
-                    item.Cantidad++;
-                }
+                    ItemsCarrito item = carrito.lista.Find(x => x.Producto.Id.ToString() == id);
 
-                Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
-                Session["carrito"] = carrito;
-            }
-
-            //repetidorCarrito.DataSource = carrito.lista;
-            //repetidorCarrito.DataBind();
-
-            //lblTotal.Text = carrito.totalCarrito(carrito).ToString();
-
-
-            if (!IsPostBack)
-            {
-                
-                if (Session["ItemCount"] == null)
-                {
-                    Session["ItemCount"] = 0;
-                }
-            }
-
-            string a = Convert.ToString(Session["items"]);
-            if (string.IsNullOrEmpty(a))
-            {
-                Session["a"] = 0;
-            }
-            else
-            {
-                int c = Convert.ToInt32(Session["items"]);
-                int d = Convert.ToInt32(Session["a"]);
-                int cantItems = d + c;
-
-                
-                if (c > 0)
-                {
-                    if (Session["ItemCount"] != null)
+                    if (item == null)
                     {
-                        int itemCount;
-                        if (int.TryParse(Session["ItemCount"].ToString(), out itemCount))
-                        {
-                            itemCount += c;
-                            Session["ItemCount"] = itemCount;
-                        }
-                        else
-                        {
-                            // Manejo del error de conversión
-                        }
+                        List<Producto> listado = (List<Producto>)Session["Listaproducto"];
+                        producto = listado.Find(x => x.Id.ToString() == id);
+                        item = new ItemsCarrito(); // Crear una nueva instancia de ItemsCarrito
+                        item.SubTotal = Convert.ToDecimal(producto.Precio);
+                        item.Producto = producto;
+                        item.Cantidad = 1;
+                        carrito.lista.Add(item);
                     }
                     else
                     {
-                        Session["ItemCount"] = c;
+                        //item.SubTotal += item.SubTotal;
+                        item.Cantidad++;
                     }
-                    Session["items"] = 0;
+
+                    Session["idArtCarrito"] = ""; // Reiniciar el ID de artículo en la sesión
+                    Session["carrito"] = carrito;
                 }
 
-                LblItems.Text = Session["ItemCount"].ToString();
-                Session["a"] = cantItems;
+                //repetidorCarrito.DataSource = carrito.lista;
+                //repetidorCarrito.DataBind();
+
+                //lblTotal.Text = carrito.totalCarrito(carrito).ToString();
+
+
+                if (!IsPostBack)
+                {
+
+                    if (Session["ItemCount"] == null)
+                    {
+                        Session["ItemCount"] = 0;
+                    }
+                }
+
+                string a = Convert.ToString(Session["items"]);
+                if (string.IsNullOrEmpty(a))
+                {
+                    Session["a"] = 0;
+                }
+                else
+                {
+                    int c = Convert.ToInt32(Session["items"]);
+                    int d = Convert.ToInt32(Session["a"]);
+                    int cantItems = d + c;
+
+
+                    if (c > 0)
+                    {
+                        if (Session["ItemCount"] != null)
+                        {
+                            int itemCount;
+                            if (int.TryParse(Session["ItemCount"].ToString(), out itemCount))
+                            {
+                                itemCount += c;
+                                Session["ItemCount"] = itemCount;
+                            }
+                            else
+                            {
+                                // Manejo del error de conversión
+                            }
+                        }
+                        else
+                        {
+                            Session["ItemCount"] = c;
+                        }
+                        Session["items"] = 0;
+                    }
+
+                    LblItems.Text = Session["ItemCount"].ToString();
+                    Session["a"] = cantItems;
+
+                }
+            
+        }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex);
+                throw;
             }
         }
-    }
+}
 
 
 }
