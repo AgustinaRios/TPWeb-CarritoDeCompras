@@ -14,6 +14,8 @@ namespace TPWeb_CarritoDeCompras
         void Application_Start(object sender, EventArgs e)
         {
             // Código que se ejecuta al iniciar la aplicación
+            string defaultUrl = "~/Default.aspx";
+            System.Web.Routing.RouteTable.Routes.MapPageRoute("Default", "", defaultUrl);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
